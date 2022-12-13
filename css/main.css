@@ -1,0 +1,167 @@
+#body{
+   background-color: #090e11;
+}
+#table, #form, #salir{
+   display: none;
+}
+.title {
+   margin-top: 25px;
+   font-weight: bold;
+   text-align: center;
+   color: #e3e3e3;
+}
+.menu{
+   text-align: center;
+   padding-left: 20px;
+   background-color:#27343c;
+   color: #7797a6;
+
+}
+.elementoMenu{
+   padding-top: 10px;
+   font-weight: bold;
+}
+p{
+   cursor: pointer;
+}
+p:hover{
+   color: #e3e3e3;
+}
+#buscar{
+   margin-left: 58%;
+   margin-top: 10px;
+}
+.form{
+   margin-left:33%;
+   margin-top: 5%;
+   padding: 15px;
+   border-radius: 10px;
+   background-color: #27343c;
+}
+label{
+   color: #e3e3e3;
+}
+#divtable{
+   margin-left: 20%;
+   margin-top: 20px;
+   text-align: center;
+}
+#fondo{
+   font-size: 50px;
+   text-align: center;
+   color: #3e5757;
+   margin-top: 150px;
+}
+/*
+#est{
+   color: #e3e3e3;
+}
+.table{
+   background-color: #1c2424;
+   color: tomato;
+}
+th{
+   color: #e3e3e3;
+}
+*/
+
+/*body {
+    background-color: rgb(176, 224, 224);
+ }
+
+
+ form {
+    width: 380px;
+    margin: 50px auto;
+ }
+
+ .input {
+    margin-top: 10px;
+    display: flex;
+ }
+
+ .input label {
+    width: 20%;
+    text-align: right;
+    padding-right: 5px;
+    align-self: center;
+ }
+
+ .input input {
+    padding: 6px 12px;
+    border: 1px solid #000;
+    width: 60%;
+ }
+
+ .botones {
+    margin-top: 10px;
+    text-align: center;
+ }
+
+ .botones button {
+    padding: 8px 20px;
+ }
+
+ [class^="btn-"],
+ [class*=" btn-"] {
+    background-image: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: normal;
+    margin-bottom: 0;
+    text-align: center;
+    touch-action: manipulation;
+    text-transform: capitalize;
+    vertical-align: middle;
+    white-space: nowrap;
+    user-select: none;
+    text-decoration: none;
+ }
+
+ .btn-registrar {
+    background-color: blue;
+    color: #fff;
+ }
+
+ .btn-editar {
+    color: blue;
+ }
+
+ .btn-eliminar {
+    color: red;
+ }
+
+ table {
+    width: 480px;
+    margin: auto;
+    border-collapse: collapse;
+ }
+
+ table,
+ th,
+ td {
+    border: 1px solid black;
+ }
+
+ caption {
+    font-size: 18px;
+ }
+
+ thead tr {
+    background-color: rgb(12, 204, 192);
+ }
+
+ td {
+    text-align: center;
+ }
+
+ tr {
+    background-color: #fff;
+ }
+
+ #message {
+    margin: 5px 0;
+    text-align: center;
+ }*/

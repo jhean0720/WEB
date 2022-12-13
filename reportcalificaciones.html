@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title> Calificación de estudiantes </title>
+
+   <!--Este es el link para el archivo donde contiene los estilos CSS-->
+   <link rel="stylesheet" href="css/main.css">
+
+   <!--CDN de Bootstrap-->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body style="background-color: #051f2e;">
+   
+   <div class="container-fluid">
+      <h1 class="title">Publicar notas de Estudiantes</h1>
+
+      <div class="row menu">
+         <div class="col-md-3">
+            <p class="elementoMenu onOff" onclick="mostrarFormulario()">Digitar datos estudiante</p>
+         </div>
+         <div class="col-md-3" >
+            <p class="elementoMenu onOff" onclick="mostrarTablaYForm()">Ver / Modificar estudiantes</p>
+         </div>
+         <div class="col-md-3">
+            <p class="elementoMenu onOff" onclick="consultarEstudiantes()">Consultar estudiantes </p>
+         </div>
+         <div class="col-md-3">
+            <p class="elementoMenu" id="salir" onclick="salir()">Salir</p>
+            <p class="elementoMenu" id="entrar" onclick="salir()">Entrar</p>
+         </div>
+      </div>
+
+      <div class="row ">
+         <div class="col-md-4 form" id="form">
+               <form id="form-reg">
+                  <div class="col-md-12 form-group input">
+                     <label> Nombre</label>
+                     <input class="form-control"  id="name" type="text" name="nombre" value="">
+                  </div>
+                  <div class="col-md-12 form-group input">
+                     <label>Matrícula</label>
+                     <input class="form-control" id="matricula" type="text" name="Matricula" >
+                  </div>
+                  <div class="col-md-12  form-group input">
+                     <label>Edad: </label>
+                     <input class="form-control" id="edad" type="number" name="edad">
+                  </div>
+                  <div class="col-md-12  form-group input">
+                     <label>Calificación: </label>
+                     <input class="form-control" id="calificacion" type="number" name="calificacion">
+                  </div>
+                  <div id="message"></div>
+                  <div class="botones">
+                     <button class="btn btn-primary btn-registrar">Registrar</button>
+                  </div>
+               </form>
+         </div>
+      </div>
+      
+      <div class="row">
+         <div class="col-md-3" id="buscar">
+            <input type="text" onkeyup="doSearch()"  id="searchTerm" class="form-control" placeholder="Buscar estudiante">
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-md-10">
+            <div id="divtable">
+               <table  id="datos" class="table table-dark table-hover">
+                  <caption>Notas finales de los estudiantes</caption>
+                  <thead>
+                     <tr>
+                        <th>Nombre</th>
+                        <th>Matrícula</th>
+                        <th> Edad</th>
+                        <th>Nota Final</th>
+                        <th>Acción</th>
+                     </tr>
+                  </thead>
+                  <tbody id="est"></tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <h2 id="fondo">Elija una opción</h2>
+   </div>
+   
+   <script>
+      //Muestra tabla y oculta demas elementos
+      function mostrarTabla(){
+         if(document.getElementById('divtable').style.display == "none"){
+            document.getElementById('divtable').style.display = "block";
+            document.getElementById('fondo').style.display = "none";
+            document.getElementById('form').style.display = "none";
+            document.getElementById('buscar').style.display = "none";
+         }else{
+            document.getElementById('divtable').style.display = "none"
+            document.getElementById('buscar').style.display = "none";
+            document.getElementById('fondo').style.display = "block"
+         }
+      }
+
+      function mostrarTablaYForm(){
+         if(document.getElementById('divtable').style.display == "none" || document.getElementById('form').style.display == "none"){
+            document.getElementById('divtable').style.display = "block";
+            document.getElementById('form').style.display = "block";
+            document.getElementById('fondo').style.display = "none";
+            document.getElementById('buscar').style.display = "none";
+         }else{
+            document.getElementById('divtable').style.display = "none"
+            document.getElementById('form').style.display = "none"
+            document.getElementById('buscar').style.display = "none";
+            document.getElementById('fondo').style.display = "block"
+         }
+      }
+      //Muestra campo buscar y tabla y oculta demas elementos
+      function consultarEstudiantes(){
+         if(document.getElementById('divtable').style.display == "none" || document.getElementById('buscar').style.display == "none"){
+            document.getElementById('divtable').style.display = "block";
+            document.getElementById('buscar').style.display = "block"
+            document.getElementById('fondo').style.display = "none";
+            document.getElementById('form').style.display = "none";
+         }else{
+            document.getElementById('divtable').style.display = "none"
+            document.getElementById('buscar').style.display = "none"
+            document.getElementById('fondo').style.display = "block"
+         }
+      }
+      //Muestra formulario y oculta demas elementos
+      function mostrarFormulario(){
+         if(document.getElementById('form').style.display == "none"){
+            document.getElementById('form').style.display = "block";
+            document.getElementById('fondo').style.display = "none"
+            document.getElementById('divtable').style.display = "none"
+            document.getElementById('buscar').style.display = "none";
+         }else{
+            document.getElementById('form').style.display = "none"
+            document.getElementById('fondo').style.display = "block"
+         }
+      }
+      //Salir y entrar
+      //Oculta o muestra todos los demas elementos, a parte de los botones Salir y Entrar
+      function salir(){
+         if(document.getElementById('salir').style.display == "block"){
+            document.getElementById('entrar').style.display = "block";
+            document.getElementById('salir').style.display = "none";
+            document.getElementById('divtable').style.display = "none";
+            document.getElementById('form').style.display = "none";
+            document.getElementById('buscar').style.display = "none";
+            document.getElementsByClassName('onOff')[0].style.display = 'none';
+            document.getElementsByClassName('onOff')[1].style.display = 'none';
+            document.getElementsByClassName('onOff')[2].style.display = 'none';
+            document.getElementsByClassName('onOff')[3].style.display = 'none';
+         }else{
+            document.getElementById('salir').style.display = "block";
+            document.getElementById('fondo').style.display = "none";
+            document.getElementById('entrar').style.display = "none";
+            document.getElementById('divtable').style.display = "block";
+            document.getElementById('form').style.display = "none";
+            document.getElementById('buscar').style.display = "none";
+            document.getElementsByClassName('onOff')[0].style.display = 'block';
+            document.getElementsByClassName('onOff')[1].style.display = 'block';
+            document.getElementsByClassName('onOff')[2].style.display = 'block';
+            document.getElementsByClassName('onOff')[3].style.display = 'block';
+         }
+      }
+      
+      //BUSQUEDA EN TABLA
+      function doSearch() {
+         const tableReg = document.getElementById('datos');
+         const searchText = document.getElementById('searchTerm').value.toLowerCase();
+         let total = 0;
+
+         // Recorremos todas las filas con contenido de la tabla
+         for (let i = 1; i < tableReg.rows.length; i++) {
+            // Si el td tiene la clase "noSearch" no se busca en su contenido
+            if (tableReg.rows[i].classList.contains("noSearch")) {
+               continue;
+            }
+
+            let found = false;
+            const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+            // Recorremos todas las celdas
+            for (let j = 0; j < cellsOfRow.length && !found; j++) {
+               const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+               // Buscamos el texto en el contenido de la celda
+               if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+                     found = true;
+                     total++;
+               }
+            }
+            if (found) {
+               tableReg.rows[i].style.display = '';
+            } else {
+               // si no ha encontrado ninguna coincidencia, esconde la
+               // fila de la tabla
+               tableReg.rows[i].style.display = 'none';
+            }
+         }
+
+         // mostramos las coincidencias
+      /* const lastTR = tableReg.rows[tableReg.rows.length - 1];
+         const td = lastTR.querySelector("td");
+         lastTR.classList.remove("hide", "red");
+         if (searchText == "") {
+            lastTR.classList.add("hide");
+         } else if (total) {
+            td.innerHTML = "Socios encontrados: " + total;
+         } else {
+            lastTR.classList.add("red");
+            td.innerHTML = "No existe ningún socio que contenga este dato.";
+         }*/
+
+      }
+
+      // funcion para captrar el id de un elemento
+      const id = x => document.getElementById(x);
+      const formUI = id("form-reg");
+      const Est = id("est"); // capturamos la etiqueta tbody para insertar los datos
+
+      let registroDB = []; // declaramos un array vacio
+
+      // esta funcion s utiliza para crear un objeto de los datos del formulario
+      const createReg = (a, b, c, d, e = "") => {
+         if (e) {
+            const item = {
+               Nombre: a,
+               Matricula: b,
+               Edad: c,
+               Nota: d,
+            }
+            registroDB.splice(e, 1, item);
+            return item;
+         } else {
+            const item = {
+               Nombre: a,
+               Matricula: b,
+               Edad: c,
+               Nota: d
+            }
+            registroDB.push(item);
+            return item;
+         }
+      }
+
+      // esta funcion es para guardar en el localstorage
+      const guardarDB = () => {
+         localStorage.setItem("Estudiantes", JSON.stringify(registroDB));
+         showTable();
+      }
+
+      // Esta funcion es para modificar el contenido
+      const editarDB = data => {
+         let indexReg = registroDB.findIndex(el => el.Matricula === data);
+         let Nombre = id("name").value = registroDB[indexReg].Nombre,
+            Matricla = id("matricula").value = registroDB[indexReg].Matricula,
+            Edad = id("edad").value = registroDB[indexReg].Edad,
+            Nota = id("calificacion").value = registroDB[indexReg].Nota;
+
+         const input = document.createElement("input"),
+            atInput = input.setAttribute("type", "hidden"),
+            idInput = input.setAttribute("id", "vIndex"),
+            atInput2 = input.setAttribute("value", indexReg);
+
+         formUI.appendChild(input);
+
+         document.querySelector(".btn-registrar").setAttribute("id", "btn-guardar");
+      }
+
+      // esta funcion es para eliminar contenidos
+      const eliminarDB = dato => {
+         // console.log(dato);
+         let indexReg;
+         registroDB.forEach((elem, index) => {
+            if (elem.Nombre === dato) {
+               indexReg = index;
+            }
+         });
+
+         registroDB.splice(indexReg, 1);
+         guardarDB();
+      }
+
+      // esta funcion se utiliza para cargar los datos en la tabla
+      const showTable = () => {
+         Est.innerHTML = "";
+         registroDB = JSON.parse(localStorage.getItem("Estudiantes"));
+         // console.log(registroDB);
+         if (registroDB === null || registroDB.length === 0) {
+            registroDB = [];
+            Est.innerHTML = `
+                  <tr>
+                     <td colspan="5">No hay datos</td>                     
+                  </tr>
+               `;
+         } else {
+            registroDB.forEach(el => {
+               Est.innerHTML += `
+                  <tr>
+                     <td>${el.Nombre}</td>
+                     <td>${el.Matricula}</td>
+                     <td>${el.Edad} años</td>
+                     <td>${el.Nota} puntos</td>
+                     <td>
+                        <a class="btn btn-warning" href="${el.Matricula}">Editar</a>
+                        <a class="btn btn-danger" href="${el.Nombre}">Eliminar</a>
+                  </tr>
+               `;
+            });
+         }
+      }
+
+      // capturamos el evento submit para procesar los datos del formulario
+      formUI.addEventListener("submit", e => {
+         e.preventDefault();
+
+         const n = id("name"),
+            m = id("matricula"),
+            ed = id("edad"),
+            no = id("calificacion");
+
+         if (n.value !== "" || m.value !== "" || ed.value !== "" || no.value !== "") {
+            createReg(n.value, m.value, ed.value, no.value);
+            guardarDB();
+            showTable();
+            const message = id("message").innerHTML = "Datos Guardados";
+            formUI.reset();
+            setTimeout(() => {
+               const message = id("message").innerHTML = "";
+            }, 4000);
+         } else {
+            const message = id("message").innerHTML = "Debes llenar los campos";
+            setTimeout(() => {
+               const message = id("message").innerHTML = "";
+            }, 4000);
+         }
+      });
+
+      // este evento es para cargar los datos en la tabla despues que cargue la pagina
+      document.addEventListener("DOMContentLoaded", showTable);
+
+      // Se captura el evento click de los botones editar y eliminar de la tabla
+      Est.addEventListener("click", (e) => {
+         if (e.target.matches(".btn-editar")) {
+            e.preventDefault();
+            editarDB(e.target.attributes[1].nodeValue);
+         }
+
+         if (e.target.matches(".btn-eliminar")) {
+            e.preventDefault();
+            eliminarDB(e.target.attributes[1].nodeValue)
+         }
+      });
+
+      // se captura el evento click del id del boton registro para actualizar los datos
+      formUI.addEventListener("click", e => {
+         if (e.target.matches("#btn-guardar")) {
+            e.preventDefault()
+            const n = id("name"),
+               m = id("matricula"),
+               ed = id("edad"),
+               no = id("calificacion"),
+               vi = id("vIndex");
+
+            if (n.value !== "" || m.value !== "" || ed.value !== "" || no.value !== "") {
+               createReg(n.value, m.value, ed.value, no.value, vi.value);
+               guardarDB();
+               showTable();
+               formUI.removeChild(vi);
+               formUI.reset();
+               document.querySelector(".btn-registrar").removeAttribute("id", "btn-guardar");
+               const message = id("message").innerHTML = "Datos Actualizados";
+               setTimeout(() => {
+                  const message = id("message").innerHTML = "";
+               }, 4000);
+
+            }
+         }
+      });
+
+   </script>
+</body>
+
+</html>
